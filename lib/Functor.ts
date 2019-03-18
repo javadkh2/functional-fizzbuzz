@@ -8,10 +8,10 @@ export interface IFunctor {
 
 // inspect function get a map function and  a value and perform map on item for hide complexity of run an map on a item with special type
 // for instance: performing map on a list need iterate list so iterate hidden in inspect method
-export type IInspect = (map: Imap) => (item: any) => any;
+export type Iinspect = (map: Imap) => (item: any) => any;
 
-export const Functor = (inspect: IInspect) => ($value: any): IFunctor => ({
-    map: (f: Imap) => Functor(inspect)(inspect(f)($value)),
+export const createFunctor = (inspect: Iinspect) => ($value: any): IFunctor => ({
+    map: (f: Imap) => createFunctor(inspect)(inspect(f)($value)),
     value: () => $value,
 })
 

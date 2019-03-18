@@ -1,4 +1,4 @@
-import { Imap, Functor } from "./Functor";
+import { Imap, createFunctor } from "./functor";
 
 // base structure for handling list structure first element is a normal value and second is another pair
 export interface IPair { first: any, second: IPair }
@@ -24,4 +24,4 @@ export const convertListToArray = (list: IPair): Array<any> => list ? [fst(list)
 export const convertArrayToList = (ar: Array<any>): IPair => ar && ar.length ? pair(ar[0], ar.shift()) : null as unknown as IPair;
 
 // get a list and return a functor for the list
-export const ListFunctor = Functor(pairMap);
+export const ListFunctor = createFunctor(pairMap);
