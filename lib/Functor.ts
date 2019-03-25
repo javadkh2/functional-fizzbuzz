@@ -13,7 +13,7 @@ export interface IFunctor {
 export type Iinspect = (map: Imap) => (item: any) => any;
 
 export const createFunctor = curry((inspect: Iinspect, $value: any): IFunctor => ({
-    map: (f: Imap) => createFunctor(inspect)(inspect(f)($value)),
+    map: (f: Imap) => createFunctor(inspect, inspect(f)($value)),
     value: () => $value,
 }))
 
