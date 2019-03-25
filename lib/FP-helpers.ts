@@ -3,10 +3,9 @@ export const compose = (...func: Function[]) => (args: any) => func.reduceRight(
 
 // curry return a function for treat with a function like a chain of functions with partial input
 export const curry = (func: Function) => {
-    const length = func.length;
     const chain = (argument: any[]) => (...args: any[]) => {
         let newArgument = [...argument, ...args]
-        if (newArgument.length >= length) return func(...newArgument);
+        if (newArgument.length >= func.length) return func(...newArgument);
         return chain(newArgument);
     }
     return chain([]);
