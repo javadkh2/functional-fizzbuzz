@@ -1,3 +1,5 @@
+import { curry } from "./FP-helpers";
+
 export type Imap = (item: any) => any;
 
 
@@ -10,13 +12,13 @@ export interface IFunctor {
 // for instance: performing map on a list need iterate list so iterate hidden in inspect method
 export type Iinspect = (map: Imap) => (item: any) => any;
 
-export const createFunctor = (inspect: Iinspect) => ($value: any): IFunctor => ({
+export const createFunctor = curry((inspect: Iinspect, $value: any): IFunctor => ({
     map: (f: Imap) => createFunctor(inspect)(inspect(f)($value)),
     value: () => $value,
-})
+}))
 
 
-export const fMap = (f: Imap) => (functor: IFunctor) => functor.map(f)
+export const fMap = curry((f: Imap, functor: IFunctor) => functor.map(f))
 export const fValue = (f: IFunctor) => f.value();
 
 
